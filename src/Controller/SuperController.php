@@ -74,10 +74,18 @@ class SuperController extends AbstractController
 
     public function player()
     {
-
-
         try {
             return $this->twig->render('Super/player.html.twig', []);
+        } catch (\Exception $e) {
+            $e->getMessage();
+
+        }
+    }
+
+    public function round()
+    {
+        try {
+            return $this->twig->render('Super/round.html.twig', []);
         } catch (\Exception $e) {
             $e->getMessage();
 
