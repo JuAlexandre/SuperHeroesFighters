@@ -73,6 +73,7 @@ class SuperController extends AbstractController
 
     public function chooseHero()
     {
+        session_start();
 
         //données fixtures
         $player = new Player('toto', 'good');
@@ -80,8 +81,6 @@ class SuperController extends AbstractController
         $_SESSION['fight'] = new Fight($player, $cpu);
 
         //fin données fixtures
-
-        session_start();
 
         if (empty($_SESSION['fight'])) {
             throw new \LogicException('Une partie doit exister.');
