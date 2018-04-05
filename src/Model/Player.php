@@ -30,9 +30,9 @@ class Player
     private $alignement;
 
 
-    public function __construct()
+    public function __construct(string $name, string $alignement)
     {
-        //todo
+        $this->setName($name)->setAlignement($alignement);
     }
 
     /**
