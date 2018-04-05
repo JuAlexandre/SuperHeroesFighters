@@ -33,7 +33,7 @@ class Hero
     /**
      * @var int
      */
-    private $duratbility;
+    private $durability;
     /**
      * @var int
      */
@@ -47,19 +47,23 @@ class Hero
      */
     private $gender;
     /**
-     * @var string
+     * @var ?string
      */
     private $race;
     /**
      * @var string
      */
-    private $alignement;
+    private $alignment;
+    /**
+     * @var string
+     */
+    private $photo;
 
-    public function __construct(int $id, string $name, int $intelligence, int $strength, int $speed, int $durability, int $power, int $combat, string $gender, string $race, string $alignement)
+    public function __construct(int $id, string $name, int $intelligence, int $strength, int $speed, int $durability, int $power, int $combat, string $gender, ?string $race, string $alignment, string $photo)
     {
         $this->setId($id)->setName($name)->setIntelligence($intelligence)->setStrength($strength)->setSpeed($speed)
-            ->setDuratbility($durability)->setPower($power)->setCombat($combat)->setGender($gender)->setRace($race)
-            ->setAlignement($alignement);
+            ->setDurability($durability)->setPower($power)->setCombat($combat)->setGender($gender)->setRace($race)
+            ->setAlignment($alignment)->setPhoto($photo);
     }
 
     /**
@@ -155,18 +159,18 @@ class Hero
     /**
      * @return mixed
      */
-    public function getDuratbility(): int
+    public function getDurability(): int
     {
-        return $this->duratbility;
+        return $this->durability;
     }
 
     /**
-     * @param mixed $duratbility
+     * @param int $durability
      * @return Hero
      */
-    public function setDuratbility(int $duratbility): Hero
+    public function setDurability(int $durability): Hero
     {
-        $this->duratbility = $duratbility;
+        $this->durability = $durability;
         return $this;
     }
 
@@ -227,7 +231,7 @@ class Hero
     /**
      * @return mixed
      */
-    public function getRace(): string
+    public function getRace(): ?string
     {
         return $this->race;
     }
@@ -236,7 +240,7 @@ class Hero
      * @param mixed $race
      * @return Hero
      */
-    public function setRace(string $race): Hero
+    public function setRace(?string $race): Hero
     {
         $this->race = $race;
         return $this;
@@ -245,18 +249,36 @@ class Hero
     /**
      * @return mixed
      */
-    public function getAlignement(): string
+    public function getAlignment(): string
     {
-        return $this->alignement;
+        return $this->alignment;
     }
 
     /**
-     * @param mixed $alignement
+     * @param string $alignment
      * @return Hero
      */
-    public function setAlignement(string $alignement): Hero
+    public function setAlignment(string $alignment): Hero
     {
-        $this->alignement = $alignement;
+        $this->alignment = $alignment;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPhoto(): string
+    {
+        return $this->photo;
+    }
+
+    /**
+     * @param string $photo
+     * @return Hero
+     */
+    public function setPhoto(string $photo): Hero
+    {
+        $this->photo = $photo;
         return $this;
     }
 
