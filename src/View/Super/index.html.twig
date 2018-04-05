@@ -1,1 +1,85 @@
-{% extends '../layout.html.twig' %}
+{% extends 'layout.html.twig' %}
+{% block stylesheet %}<link rel="stylesheet" href="assets/css/styles.css">{% endblock %}
+{% block body %}
+<div class="container-fluid">
+    <div class="row background-img"></div>
+</div>
+
+<div class="container-fluid">
+
+    <div class="row ">
+        <div class="col text-center">
+            <h2>Règle du jeu</h2>
+        </div>
+    </div>
+
+    <div class="row ">
+        <div class="col-2 d-flex">
+            <img class="img mx-auto my-auto" src="{{ hero1 }}" alt=" hero photo"/>
+        </div>
+
+        <div class="col-5 ">
+            <h3>Le but du jeu :</h3>
+
+            <ul>
+                <li>Tu dois mettre ton adversaire K.O</li>
+            </ul>
+
+            <h3>Tu gagnes quand :</h3>
+
+            <ul>
+                <li>ton adversaire perd tous ses points de vie</li>
+                <li>ou bien si tu as le plus de points de vie au bout des 6 tours.</li>
+            </ul>
+
+        </div>
+        <div class="col-5">
+            <h3>Le déroulement du jeu :</h3>
+
+            <ul>
+                <li>6 tours</li>
+                <li>tu choisis ton camp de personnages : bon ou mauvais ( CPU prend l'opposé )</li>
+                <li>tu sélectionnes 6 personnages parmi les 12 qui te sont proposés</li>
+                <li>tu as 100 points de vie</li>
+                <li>tu as une “carte” shifumi à jouer quand tu le souhaites une seule fois dans la partie pour tenter de voler des points de vie à ton adversaire</li>
+                <li>tes personnages possèdent 6 types d’attaque () allant chacun de 0 à 100</li>
+            </ul>
+        </div>
+
+    </div>
+
+    <div class="row ">
+        <div class="col-5 ">
+            <h3>Déroulement d’un tour :</h3>
+
+            <ul>
+                <li>le type d’attaque change à chaque tour de manière aléatoire</li>
+                <li>chaque joueur choisit un personnage de son dek</li>
+                <li>un des joueurs peut demander d'utiliser son shifumi ou non</li>
+                <li>on compare la valeur du type d’attaque de chaque personnage, celui qui a la plus petite valeur perd la différence en point de vie</li>
+            </ul>
+        </div>
+        <div class="col-5 ">
+            <h3>Règle du shifumi :</h3>
+
+            <ul>
+                <li>si tu gagnes le chifumi, tu prends à ton adversaire la différence de valeurs du type d’attaque du tour en cours, en points de vie</li>
+                <li>si tu perds, tu donnes cette différence à ton adversaire</li>
+                <li>un des joueurs peut demander d'utiliser son shifumi ou non</li>
+                <li>si match nul, tu as perdu ta carte shifumi et le tour continue normalement</li>
+            </ul>
+        </div>
+
+        <div class="col-2 d-flex">
+            <img class="img mx-auto my-auto" src="{{ hero2 }}" alt="hero photo "/>
+        </div>
+    </div>
+
+    <div class="row ">
+        <div class="col">
+            <button type="button" class="btn btn-link">JOUER</button>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

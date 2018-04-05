@@ -65,7 +65,10 @@ class SuperController extends AbstractController
         $_SESSION['bads'] = $bads;
 
         try {
-            return $this->twig->render('Super/index.html.twig', []);
+            return $this->twig->render('Super/index.html.twig', [
+                'hero1' => 'http://via.placeholder.com/160x240',
+                'hero2' => 'http://via.placeholder.com/160x240',
+            ]);
         } catch (\Exception $e) {
             $e->getMessage();
         }
