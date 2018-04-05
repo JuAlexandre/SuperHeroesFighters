@@ -22,7 +22,18 @@ class Player
     /**
      * @var array
      */
-    private $cards = [];
+    private $heroes = [];
+
+    /**
+     * @var string
+     */
+    private $alignement;
+
+
+    public function __construct()
+    {
+        //todo
+    }
 
     /**
      * @return mixed
@@ -63,18 +74,36 @@ class Player
     /**
      * @return array
      */
-    public function getCards(): array
+    public function getHeroes(): array
     {
-        return $this->cards;
+        return $this->heroes;
     }
 
     /**
-     * @param array $cards
+     * @param array $heroes
      * @return Player
      */
-    public function setCards(array $cards): Player
+    public function setHeroes(array $heroes): Player
     {
-        $this->cards = $cards;
+        $this->heroes = $heroes;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAlignement(): string
+    {
+        return $this->alignement;
+    }
+
+    /**
+     * @param string $alignement
+     * @return Player
+     */
+    public function setAlignement(string $alignement): Player
+    {
+        $this->alignement = $alignement;
         return $this;
     }
 
