@@ -33,4 +33,15 @@ class SuperController extends AbstractController
             $e->getMessage();
         }
     }
+
+    public function gameResult()
+    {
+
+
+        try {
+            return $this->twig->render('Super/game_result.html.twig', []);
+        } catch (\Exception $e) {
+            $e->getMessage();
+        }
+    }
 }
