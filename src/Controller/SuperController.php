@@ -58,7 +58,7 @@ class SuperController extends AbstractController
             header('Location: /gameresult');
         }
 
-        $round = $fight->getRound();
+        $round = $fight->getRound() + 1;
         $fightersPlayer = $fight->getPlayer()->getHeroes();
 
 
