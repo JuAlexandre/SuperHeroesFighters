@@ -13,7 +13,7 @@ $routes = [
     'Super' => [ // Controller
         ['index', '/', 'GET'], // action, url, method
         ['player', '/player', 'GET'],
-        ['team', '/team', 'POST'],
+        ['team', '/team', 'GET'],
         ['chooseHero', '/choosehero', 'GET'],
         ['round', '/round', 'POST'],
         ['roundResult', '/roundresult', 'GET'],
