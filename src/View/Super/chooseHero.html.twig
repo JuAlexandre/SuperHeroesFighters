@@ -1,0 +1,49 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}{{ parent() }} - Choix du héros{% endblock %}
+
+{% block body %}
+<section class="container">
+    <div class="row justify-content-end d-flex">
+        <div class="col-md-4">
+            <p>Tour n° : {{ round }}</p>
+        </div>
+    </div>
+    <div class="row">
+        <p>
+            Le prochain round sera de type :
+        </p>
+    </div>
+    <div class="row">
+        <button>Chi-Fu-Mi</button>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <form method="post" action="/round">
+                <div class="row">
+                    {% for i in 0..5 %}
+                        <div class="col-4">
+                            <div class="card" style="width: 18rem;">
+                                <img class="card-img-top" src="{{ fightersPlayer.i.image }}" alt="Card image cap">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ fightersPlayers.i.name }}</h5>
+                                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="hero" id="hero{{ i }}" value="{{ i }}">
+                                        <label class="form-check-label" for="hero{{ i }}">
+                                            hero{{ i }}
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="row">
+                    <input type="submit" value="Envoyer au combat !!!">
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}
