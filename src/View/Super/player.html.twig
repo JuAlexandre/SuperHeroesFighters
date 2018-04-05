@@ -1,0 +1,33 @@
+{% extends 'layout.html.twig' %}
+{% block stylesheet %}
+    <link rel="stylesheet" href="assets/css/player.css">
+{% endblock %}
+{% block body %}
+    <div class="container">
+        <form id="player" method="post" action="/team">
+            <input id="alignment" type="hidden" name="alignment" value="good">
+            <div class="form-group">
+                <div class="form-group">
+                    <label for="name">Ton nom :</label>
+                    <input type="text" name="name" class="form-control">
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <button id="good" type="submit" class="btn btn-success form-control">BON</button>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <button id="bad" type="submit" class="btn btn-danger form-control">MAUVAIS</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    <script src="assets/javascript/player.js"></script>
+{% endblock %}

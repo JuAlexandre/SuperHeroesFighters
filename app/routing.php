@@ -13,9 +13,9 @@ $routes = [
     'Super' => [ // Controller
         ['index', '/', 'GET'], // action, url, method
         ['player', '/player', 'GET'],
-        ['team', '/team', 'GET'],
+        ['team', '/team', 'POST'],
         ['chooseHero', '/choosehero', 'GET'],
-        ['round', '/round', 'GET'],
+        ['round', '/round', 'POST'],
         ['roundResult', '/roundresult', 'GET'],
         ['gameResult', '/gameresult', 'GET'],
     ],

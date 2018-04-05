@@ -9,6 +9,8 @@
 
 namespace Controller;
 use GuzzleHttp\Exception\GuzzleException;
+use Model\Fight;
+use Model\Player;
 
 
 /**
@@ -34,6 +36,7 @@ class SuperController extends AbstractController
         }
     }
 
+
     public function gameResult()
     {
 
@@ -42,6 +45,54 @@ class SuperController extends AbstractController
             return $this->twig->render('Super/game_result.html.twig', []);
         } catch (\Exception $e) {
             $e->getMessage();
+        }
+    }
+
+    public function chooseHero()
+    {
+
+        //données fixtures
+        $player = new Player('toto', 'good');
+        $cpu = new Player('cpu', 'vilain');
+        $_SESSION['fight'] = new Fight($player, $cpu);
+
+        //fin données fixtures
+
+        session_start();
+
+        if (empty($_SESSION['fight'])) {
+            throw new \LogicException('Une partie doit exister.');
+        }
+
+        $fight = $_SESSION['fight'];
+
+        if ($fight->getRound() > Fight::MAX_ROUND) {
+            header('Location: /gameresult');
+        }
+
+        $round = $fight->getRound() + 1;
+        $fightersPlayer = $fight->getPlayer()->getHeroes();
+
+
+        try {
+            return $this->twig->render('Super/chooseHero.html.twig', [
+                'round' => $round,
+                'fightersPlayer' => $fightersPlayer,
+            ]);
+        } catch (\Exception $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    public function player()
+    {
+
+
+        try {
+            return $this->twig->render('Super/player.html.twig', []);
+        } catch (\Exception $e) {
+            $e->getMessage();
+            
         }
     }
 }
