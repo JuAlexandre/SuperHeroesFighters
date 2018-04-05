@@ -41,20 +41,24 @@ class SuperController extends AbstractController
 
         $heroes = json_decode($heroesList->getBody());
 
-        $good = [];
-        $neutral = [];
-        $bad = [];
+        $goods = [];
+        $neutrals = [];
+        $bads = [];
 
         foreach ($heroes as $hero) {
             $alignment = $hero->biography->alignment;
+            $params = [new Hero(intval($hero->id), $hero->name, intval($hero->powerstats->intelligence), intval($hero->powerstats->strength), intval($hero->powerstats->speed), intval($hero->powerstats->durability), intval($hero->powerstats->power), intval($hero->powerstats->combat), $hero->appearance->gender, $hero->appearance->race, $hero->biography->alignment, $hero->images->sm)];
             if ($alignment == 'good') {
-                $good[] = new Hero(intval($hero->id), $hero->name, intval($hero->powerstats->intelligence), intval($hero->powerstats->strength), intval($hero->powerstats->speed), intval($hero->powerstats->durability), intval($hero->powerstats->power), intval($hero->powerstats->combat), $hero->appearance->gender, $hero->appearance->race, $hero->biography->alignment, $hero->images->sm);
+                $goods[] = $params;
             } elseif ($alignment == 'neutral' || $alignment == '-') {
-                $neutral[] = new Hero(intval($hero->id), $hero->name, intval($hero->powerstats->intelligence), intval($hero->powerstats->strength), intval($hero->powerstats->speed), intval($hero->powerstats->durability), intval($hero->powerstats->power), intval($hero->powerstats->combat), $hero->appearance->gender, $hero->appearance->race, $hero->biography->alignment, $hero->images->sm);
+                $neutrals[] = $params;
             } else {
-                $bad[] = new Hero(intval($hero->id), $hero->name, intval($hero->powerstats->intelligence), intval($hero->powerstats->strength), intval($hero->powerstats->speed), intval($hero->powerstats->durability), intval($hero->powerstats->power), intval($hero->powerstats->combat), $hero->appearance->gender, $hero->appearance->race, $hero->biography->alignment, $hero->images->sm);
+                $bads[] = $params;
             }
         }
+        $_SESSION['goods'] = $goods;
+        $_SESSION['neutrals'] = $neutrals;
+        $_SESSION['bads'] = $bads;
 
         try {
             return $this->twig->render('Super/index.html.twig', []);
@@ -66,16 +70,37 @@ class SuperController extends AbstractController
     /**
      * Display team list
      *
+     * @param $alignment
      * @return string
      */
     public function team()
     {
-        // Récupérer 12 héros aléatoirement en fonction de l'alignement
-            // Générer 12 id de 1 à 731
+        session_start();
+        $_POST['alignment'] = 'good';
+        if (empty($_POST['alignment'])) {
+            throw new \LogicException('Un alignement doit être choisi.');
+        }
 
+        $alignment = $_POST['alignment'];
+
+        if ($alignment == 'good') {
+            $goods = array_merge($_SESSION['goods'], $_SESSION['neutrals']);
+            $numbersGood = count($goods);
+            $preselectedHeroes = [];
+            for ($i=0; $i<12; $i++) {
+                $preselectedHeroes[] = $goods[rand(0, $numbersGood)][0];
+            }
+        } elseif ($alignment == 'bad') {
+            $bads = array_merge($_SESSION['bads'], $_SESSION['neutrals']);
+            $numbersBads = count($bads);
+            $preselectedHeroes = [];
+            for ($i=0; $i<12; $i++) {
+                $preselectedHeroes[] = $bads[rand(0, $numbersBads)][0];
+            }
+        }
 
         try {
-            return $this->twig->render('Super/team.html.twig', []);
+            return $this->twig->render('Super/team.html.twig', ['preselectedHeroes' => $preselectedHeroes]);
         } catch (\Exception $e) {
             $e->getMessage();
         }
