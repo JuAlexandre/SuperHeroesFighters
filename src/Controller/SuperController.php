@@ -8,7 +8,7 @@
  */
 
 namespace Controller;
-
+use GuzzleHttp\Exception\GuzzleException;
 
 
 /**
