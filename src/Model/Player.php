@@ -36,7 +36,7 @@ class Player
      * @param mixed $name
      * @return Player
      */
-    public function setName(sting $name) : Player
+    public function setName(string $name) : Player
     {
         $this->name = $name;
         return $this;

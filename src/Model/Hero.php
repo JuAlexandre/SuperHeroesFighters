@@ -14,15 +14,45 @@ class Hero
      * @var int
      */
     private $id;
+    /**
+     * @var string
+     */
     private $name;
+    /**
+     * @var int
+     */
     private $intelligence;
+    /**
+     * @var int
+     */
     private $strength;
+    /**
+     * @var int
+     */
     private $speed;
+    /**
+     * @var int
+     */
     private $duratbility;
+    /**
+     * @var int
+     */
     private $power;
+    /**
+     * @var int
+     */
     private $combat;
+    /**
+     * @var int
+     */
     private $gender;
+    /**
+     * @var string
+     */
     private $race;
+    /**
+     * @var string
+     */
     private $alignement;
 
     public function __construct(int $id, string $name, int $intelligence, int $strength, int $speed, int $durability, int $power, int $combat, string $gender, string $race, string $alignement)
@@ -206,7 +236,7 @@ class Hero
      * @param mixed $race
      * @return Hero
      */
-    public function setRace(strng $race): Hero
+    public function setRace(string $race): Hero
     {
         $this->race = $race;
         return $this;

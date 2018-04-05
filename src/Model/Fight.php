@@ -13,8 +13,17 @@ class Fight
 {
     const MAX_ROUND = 6;
 
+    /**
+     * @var Player
+     */
     private $player;
+    /**
+     * @var Player
+     */
     private $cpu;
+    /**
+     * @var int
+     */
     private $round = 0;
 
     /**
