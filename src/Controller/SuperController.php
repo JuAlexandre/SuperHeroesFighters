@@ -19,16 +19,28 @@ class SuperController extends AbstractController
 {
 
     /**
-     * Display item listing
+     * Display home
      *
      * @return string
      */
     public function index()
     {
-
-
         try {
             return $this->twig->render('Super/index.html.twig', []);
+        } catch (\Exception $e) {
+            $e->getMessage();
+        }
+    }
+
+    /**
+     * Display team list
+     *
+     * @return string
+     */
+    public function team()
+    {
+        try {
+            return $this->twig->render('Super/team.html.twig', []);
         } catch (\Exception $e) {
             $e->getMessage();
         }
