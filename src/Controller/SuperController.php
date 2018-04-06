@@ -177,4 +177,13 @@ class SuperController extends AbstractController
             $e->getMessage();
         }
     }
+
+    public function roundResult()
+    {
+        try {
+            return $this->twig->render('Super/round_result.html.twig', []);
+        } catch (\Exception $e) {
+            $e->getMessage();
+        }
+    }
 }
