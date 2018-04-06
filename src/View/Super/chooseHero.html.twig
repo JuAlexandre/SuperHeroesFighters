@@ -9,15 +9,12 @@
     <div class ="container-fluid bg-choose">
 <section class="container">
     <div class="row">
-        <div class="col-8 type my-4">
-            <p>Le prochain round sera de type : force</p>
+        <div class="col-8 type  my-4">
+            <p>Le prochain round sera de type : {{ attakType }}</p>
         </div>
-        <div class="col-4 numero my-4">
+        <div class="col-4 text-center numero my-4">
             <p>Tour n° : {{ round }}</p>
         </div>
-    </div>
-    <div class="row">
-        <p>Le round est de type : {{ attakType }}</p>
     </div>
 
     <div class="row">
@@ -54,7 +51,9 @@
                         </div>
                     {% endfor %}
                     <div class="row m-3">
-                        <input type="submit" class="btn btn-choose btn-primary" value="Envoyer au combat !">
+                        <div class="col">
+                            <input type="submit" class="btn btn-choose btn-primary" value="Envoyer au combat !">
+                        </div>
                     </div>
                 </div>
             </form>
