@@ -210,7 +210,11 @@ class SuperController extends AbstractController
             $numbersGood = count($goods);
             $cpuHeroes = [];
             for ($i=0; $i<$nbHeroes; $i++) {
-                $cpuHeroes[] = $goods[rand(0, $numbersGood)][0];
+                $randCpu = rand(0, $numbersGood);
+                if ($randCpu < 0) {
+                    $randCpu = 0;
+                }
+                $cpuHeroes[] = $goods[$randCpu][0];
             }
         } elseif ($alignmentPlayer == 'bad') {
             $bads = array_merge($_SESSION['goods'], $_SESSION['neutrals']);
@@ -218,7 +222,11 @@ class SuperController extends AbstractController
             $numbersBads = count($bads);
             $cpuHeroes = [];
             for ($i=0; $i<6; $i++) {
-                $cpuHeroes[] = $bads[rand(0, $numbersBads)][0];
+                $randCpu = rand(0, $numbersBads);
+                if ($randCpu < 0) {
+                    $randCpu = 0;
+                }
+                $cpuHeroes[] = $bads[$randCpu][0];
             }
         }
 
