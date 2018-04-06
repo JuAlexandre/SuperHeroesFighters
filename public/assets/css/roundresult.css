@@ -41,3 +41,8 @@ bleu
 button {
     background-color: #FED410 ;
 }
+
+.numero {
+    font-family: 'Bangers', cursive;
+    font-size: 1.5em;
+}
