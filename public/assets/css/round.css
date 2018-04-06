@@ -1,0 +1,25 @@
+.background_round {
+    background-image: url('../images/background_vs_gris.png');
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.right {
+    text-align: right;
+}
+
+.joueur_fight {
+    background-color: rgba(255, 255, 255, 0.7);
+    padding: 20px 0px;
+}
+
+.bangers {
+    font-family: 'Bangers', cursive;
+    font-size: 3em;
+}
