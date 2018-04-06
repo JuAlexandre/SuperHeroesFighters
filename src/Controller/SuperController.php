@@ -9,7 +9,7 @@
 
 namespace Controller;
 
-use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Client;
 use Model\Fight;
 use Model\Player;
 use Model\Hero;
@@ -32,7 +32,7 @@ class SuperController extends AbstractController
     {
         session_start();
 
-        $clientGuzzle = new \GuzzleHttp\Client([
+        $clientGuzzle = new Client([
                 'base_uri' => 'https://cdn.rawgit.com/akabab/superhero-api/0.2.0/api/',
             ]
         );
@@ -64,10 +64,17 @@ class SuperController extends AbstractController
         $_SESSION['neutrals'] = $neutrals;
         $_SESSION['bads'] = $bads;
 
+        $nbGoods = count($goods)-1;
+        $nbBads = count($bads)-1;
+
+        $heroGood = $goods[rand(0, $nbGoods)][0];
+        $heroBad = $goods[rand(0, $nbBads)][0];
+
+
         try {
             return $this->twig->render('Super/index.html.twig', [
-                'hero1' => 'http://via.placeholder.com/160x240',
-                'hero2' => 'http://via.placeholder.com/160x240',
+                'hero1' => $heroGood,
+                'hero2' => $heroBad,
             ]);
         } catch (\Exception $e) {
             $e->getMessage();
@@ -89,13 +96,6 @@ class SuperController extends AbstractController
     public function chooseHero()
     {
         session_start();
-
-        //données fixtures
-        $player = new Player('toto', 'good');
-        $cpu = new Player('cpu', 'vilain');
-        $_SESSION['fight'] = new Fight($player, $cpu);
-
-        //fin données fixtures
 
         if (empty($_SESSION['fight'])) {
             throw new \LogicException('Une partie doit exister.');
@@ -131,8 +131,14 @@ class SuperController extends AbstractController
         }
     }
 
+    /**
+     * @return string
+     */
     public function round()
     {
+
+
+
         try {
             return $this->twig->render('Super/round.html.twig', []);
         } catch (\Exception $e) {
@@ -143,18 +149,28 @@ class SuperController extends AbstractController
     /**
      * Display team list
      *
-     * @param $alignment
      * @return string
      */
     public function team()
     {
         session_start();
-        $_POST['alignment'] = 'good';
+
         if (empty($_POST['alignment'])) {
             throw new \LogicException('Un alignement doit être choisi.');
         }
 
         $alignment = $_POST['alignment'];
+
+        $player = new Player($_POST['name'], $alignment);
+
+        if ($alignment === 'good') {
+            $cpu = new Player('CPU', 'bad');
+        } else {
+            $cpu = new Player('CPU', 'good');
+        }
+
+        $_SESSION['player'] = $player;
+        $_SESSION['cpu'] = $cpu;
 
         if ($alignment == 'good') {
             $goods = array_merge($_SESSION['goods'], $_SESSION['neutrals']);
