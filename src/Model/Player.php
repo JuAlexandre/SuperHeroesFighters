@@ -27,12 +27,12 @@ class Player
     /**
      * @var string
      */
-    private $alignement;
+    private $alignment;
 
 
-    public function __construct(string $name, string $alignement)
+    public function __construct(string $name, string $alignment)
     {
-        $this->setName($name)->setAlignement($alignement);
+        $this->setName($name)->setAlignment($alignment);
     }
 
     /**
@@ -92,18 +92,18 @@ class Player
     /**
      * @return string
      */
-    public function getAlignement(): string
+    public function getAlignment(): string
     {
-        return $this->alignement;
+        return $this->alignment;
     }
 
     /**
-     * @param string $alignement
+     * @param string $alignment
      * @return Player
      */
-    public function setAlignement(string $alignement): Player
+    public function setAlignment(string $alignment): Player
     {
-        $this->alignement = $alignement;
+        $this->alignment = $alignment;
         return $this;
     }
 
