@@ -1,5 +1,5 @@
 {% extends 'layout.html.twig' %}
-{% block title %}{{ ('parent') }} - Jouez !{% endblock %}
+{% block title %}Jouez !{% endblock %}
 {% block stylesheet %}
     <link rel="stylesheet" href="assets/css/round.css">
     <link href="https://fonts.googleapis.com/css?family=Bangers|Open+Sans" rel="stylesheet">
@@ -15,11 +15,6 @@
                <div class="row"><p><span class="pv">PV </span><span class="bold"> {{ cpu.life }}</span></p></div>
            </div>
            <div class="col-7 right bangers">TOUR N° {{ fight.round }}</div>
-           <div class="row">
-               <div class="col-7 right bangers">
-                   <button onclick="document.location.href='/roundresult'" class="btn btn-default btn-lg">Suivant</button>
-               </div>
-           </div>
        </div>
         <div class="row joueur_fight">
             <div class="col-10">
@@ -28,6 +23,7 @@
                     <div class="col-9 right bangers">{{ playerHero.name }}</div>
                 </div>
                 <div class="row">
+                    <div class="col left"> <button onclick="document.location.href='/roundresult'" class="btn btn-default btn-lg bold mb">Suivant</button></div>
                     <div class="col right"><p><span class="pv">PV </span><span class="bold"> {{ player.life }}</span></p></div>
                 </div>
             </div>
