@@ -153,6 +153,7 @@ class SuperController extends AbstractController
     {
         session_start();
 
+        //si un joueur est mort on va aux résultats finaux
         if (isset($_SESSION['player']) && isset($_SESSION['cpu'])) {
             if (!empty($_SESSION['player']) && !empty($_SESSION['cpu'])) {
                 if ($_SESSION['player']->getLife() <= 0 || $_SESSION['cpu']->getLife() <= 0) {
@@ -172,6 +173,7 @@ class SuperController extends AbstractController
 
         $nbHeroes = 6 - $round;
 
+        //on set les heroes en fonction de post ou de get
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $ids = $_POST['ids'];
             sort($ids);
@@ -194,6 +196,7 @@ class SuperController extends AbstractController
         }
 
 
+
         $player = $_SESSION['player'];
         $player->setHeroes($heroesPlayer);
 
@@ -204,6 +207,7 @@ class SuperController extends AbstractController
 
         if ($alignmentPlayer == 'good') {
             $goods = array_merge($_SESSION['bads'], $_SESSION['neutrals']);
+            sort($count);
             $numbersGood = count($goods);
             $cpuHeroes = [];
             for ($i=0; $i<$nbHeroes; $i++) {
@@ -211,6 +215,7 @@ class SuperController extends AbstractController
             }
         } elseif ($alignmentPlayer == 'bad') {
             $bads = array_merge($_SESSION['goods'], $_SESSION['neutrals']);
+            sort($bads);
             $numbersBads = count($bads);
             $cpuHeroes = [];
             for ($i=0; $i<6; $i++) {
@@ -220,7 +225,14 @@ class SuperController extends AbstractController
 
         $cpu->setHeroes($cpuHeroes);
 
-        $fight = new Fight($player, $cpu);
+
+        if (!isset($_SESSION['fight'])) {
+            $fight = new Fight($player, $cpu);
+            $_SESSION['fight'] = $fight;
+        } else {
+            $fight = $_SESSION['fight'];
+        }
+
 
 
         if ($fight->getRound() > Fight::MAX_ROUND) {
@@ -243,15 +255,16 @@ class SuperController extends AbstractController
         $fightersPlayer = $fight->getPlayer()->getHeroes();
 
         $_SESSION['fight'] = $fight;
-        $round = 6 - $fight->getRound();
 
+        $round = $fight->getRound();
+        $nbHeroes = 6 - $round;
 
         try {
             return $this->twig->render('Super/chooseHero.html.twig', [
-                'nbHeroes' => $round,
+                'round' => $round,
                 'fightersPlayer' => $fightersPlayer,
                 'attakType' => $roundAttakType,
-                'round' => $nbHeroes,
+                'nbHeroes' => $nbHeroes,
 
             ]);
         } catch (\Exception $e) {
