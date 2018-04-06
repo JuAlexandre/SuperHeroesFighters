@@ -239,7 +239,11 @@ class SuperController extends AbstractController
         }
 
         //type de round
-        $rand = rand(0, count($fight->getAttaksType()) - 1);
+        $max = count($fight->getAttaksType()) - 1;
+        if ($max < 0) {
+            $max = 0;
+        }
+        $rand = rand(0, $max);
         $roundAttakType = $fight->getAttaksType()[$rand];
         $attacksType = $fight->getAttaksType();
         array_splice($attacksType, $rand, 1);
@@ -308,11 +312,11 @@ class SuperController extends AbstractController
         $damageCpu = $heroSelectedCpu->$getCarac();
 
         if ($damagePlayer > $damageCpu) {
-            $diff = abs($damageCpu-$damagePlayer);
+            $diff = $damagePlayer - $damageCpu;
             $cpuLife = $cpu->getLife();
             $cpu->setLife($cpuLife-$diff);
         } else {
-            $diff = abs($damageCpu-$damagePlayer);
+            $diff = $damageCpu - $damagePlayer;
             $playerLife = $cpu->getLife();
             $player->setLife($playerLife-$diff);
         }
@@ -376,11 +380,18 @@ class SuperController extends AbstractController
         $playerPvs = $_SESSION['pvs']['player'];
         $player = $_SESSION['player'];
 
+        if (end($cpuPvs) > end($playerPvs)) {
+            $win = 'perdu';
+        } else {
+            $win = 'gagné';
+        }
+
         try {
             return $this->twig->render('Super/game_result.html.twig', [
                 'cpuPvs' => $cpuPvs,
                 'playerPvs' => $playerPvs,
                 'player' => $player,
+                'win' => $win,
             ]);
         } catch (\Exception $e) {
             $e->getMessage();
