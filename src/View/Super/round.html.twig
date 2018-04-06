@@ -1,9 +1,34 @@
 {% extends 'layout.html.twig' %}
+{% block title %}{{ ('parent') }}Jouez !{% endblock %}
 {% block stylesheet %}
     <link rel="stylesheet" href="assets/css/round.css">
+    <link href="https://fonts.googleapis.com/css?family=Bangers|Open+Sans" rel="stylesheet">
 {% endblock %}
 {% block body %}
-    <div class="container">
-
+    <div class="container-fluid background_round">
+       <div class="row">
+           <div class="col-2">
+               <a href="https://placeholder.com"><img src="http://via.placeholder.com/160x240"></a>
+           </div>
+           <div class="col-3">
+               <div class="row bangers">NOM DU FIGHTER</div>
+               <div class="row">BARRE DE POINTS</div>
+           </div>
+           <div class="col-7 right bangers">TOUR N°</div>
+       </div>
+        <div class="row joueur_fight">
+            <div class="col-10">
+                <div class="row">
+                    <div class="col-3 bangers">NOM DU JOUEUR</div>
+                    <div class="col-9 right bangers">NOM DU FIGHTER</div>
+                </div>
+                <div class="row">
+                    <div class="col right">BARRE DE POINTS</div>
+                </div>
+            </div>
+            <div class="col-2">
+                <a href="https://placeholder.com"><img src="http://via.placeholder.com/160x240"></a>
+            </div>
+        </div>
     </div>
 {% endblock %}
