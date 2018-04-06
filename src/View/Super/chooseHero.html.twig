@@ -16,7 +16,7 @@
         </div>
     </div>
     <div class="row">
-        <p>Le round est de type :</p>
+        <p>Le round est de type : {{ attakType }}</p>
     </div>
     <div class="row m-3">
         <button class="btn btn-primary btn-lg">Chi-Fu-Mi</button>
@@ -28,26 +28,24 @@
                     {% for i in 0..5 %}
                         <div class="col-3 m-3">
                             <div class="card" style="width: 18rem;">
-                                <img class="card-img-top" src="{{ fightersPlayer[i].image }}" alt="Card image cap">
                                 <div class="card-body">
                                     <div class="form-check">
-                                        <img class="card-img-top" src="http://via.placeholder.com/160x240" alt="Card image cap">
+                                        <img class="card-img-top" src="{{ fightersPlayer[i].photo }}" alt="Card image cap">
                                         <div class="card-body">
-                                            <h5 class="card-title">{{ fightersPlayers.i.name }}</h5>
                                             <div class="card-text">
                                                 <ul>
-                                                    <li>Intelligence : {{ hero.i.intelligence }}</li>
-                                                    <li>Force : {{ hero.i.strength }}</li>
-                                                    <li>Vitesse : {{ hero.i.speed }}</li>
-                                                    <li>Durabilité : {{ hero.i.duratbility }}</li>
-                                                    <li>Pouvoir : {{ hero.i.power }}</li>
-                                                    <li>Combat : {{ hero.i.combat }}</li>
+                                                    <li>Intelligence : {{ fightersPlayer[i].intelligence }}</li>
+                                                    <li>Force : {{ fightersPlayer[i].strength }}</li>
+                                                    <li>Vitesse : {{ fightersPlayer[i].speed }}</li>
+                                                    <li>Durabilité : {{ fightersPlayer[i].duratbility }}</li>
+                                                    <li>Pouvoir : {{ fightersPlayer[i].power }}</li>
+                                                    <li>Combat : {{ fightersPlayer[i].combat }}</li>
                                                 </ul>
                                             </div>
                                             <div class="form-check card-footer">
                                                 <input class="form-check-input" type="radio" name="hero" id="hero{{ i }}" value="{{ i }}">
                                                 <label class="form-check-label" for="hero{{ i }}">
-                                                    hero{{ i }}
+                                                    {{ fightersPlayer[i].name }}
                                                 </label>
                                             </div>
                                         </div>

@@ -27,6 +27,11 @@ class Fight
     private $round = 0;
 
     /**
+     * @var array
+     */
+    private $attakType = ['intelligence', 'strength', 'speed', 'durability', 'power', 'combat'];
+
+    /**
      * Fight constructor.
      * @param Player $player
      * @param Player $cpu
@@ -92,6 +97,24 @@ class Fight
     public function setRound(int $round) : Fight
     {
         $this->round = $round;
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getAttaksType(): array
+    {
+        return $this->attakType;
+    }
+
+    /**
+     * @param array $attakType
+     * @return Fight
+     */
+    public function setAttakType(array $attakType): Fight
+    {
+        $this->attakType = $attakType;
         return $this;
     }
 

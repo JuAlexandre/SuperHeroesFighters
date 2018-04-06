@@ -141,17 +141,20 @@ class SuperController extends AbstractController
         $cpu->setHeroes($cpuHeroes);
 
         $fight = new Fight($player, $cpu);
-        $_SESSION['fight'] = $fight;
 
-        if (empty($_SESSION['fight'])) {
-            throw new \LogicException('Une partie doit exister.');
-        }
-
-        $fight = $_SESSION['fight'];
 
         if ($fight->getRound() > Fight::MAX_ROUND) {
             header('Location: /gameresult');
         }
+
+        //type de round
+        $rand = rand(0, count($fight->getAttaksType()) - 1);
+        $roundAttakType = $fight->getAttaksType()[$rand];
+        $attacksType = $fight->getAttaksType();
+        array_splice($attacksType, $rand, 1);
+        sort($attacksType);
+        $fight->setAttakType($attacksType);
+
 
         $round = $fight->getRound() + 1;
         $fightersPlayer = $fight->getPlayer()->getHeroes();
@@ -160,6 +163,7 @@ class SuperController extends AbstractController
             return $this->twig->render('Super/chooseHero.html.twig', [
                 'round' => $round,
                 'fightersPlayer' => $fightersPlayer,
+                'attakType' => $roundAttakType,
             ]);
         } catch (\Exception $e) {
             echo $e->getMessage();
