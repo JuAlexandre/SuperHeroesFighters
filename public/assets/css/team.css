@@ -1,8 +1,5 @@
 body {
-    background-image: url("../images/background_gris2.png");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: 60% 40%;
+    background-color: #1D1E1C;
     font-family: 'Open Sans', sans-serif;
 }
 
@@ -19,14 +16,16 @@ body {
     width: 200px;
 }
 
+.btn-team:hover {
+    background-color: #FF3F5F;
+}
+
 .yes {
     background-color: #DADADA;
-    box-shadow: inset 0px 0px 8px #6A7375;
 }
 
 .no {
     background-color: orange;
-
 }
 
 .yes:hover, .no:hover {
@@ -42,5 +41,9 @@ body {
 
  ul {
      list-style-type: none;
+ }
+
+ .white {
+     color: white;
  }
 
