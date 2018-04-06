@@ -8,6 +8,7 @@
 
 * {
     font-family: 'Open Sans', sans-serif;
+    color: white;
 }
 
 .bangers {
@@ -17,7 +18,6 @@
 h2 {
     font-size: 5em;
     color: #49D3EA;
-    text-shadow: #404448 0px 0px 5px;
 }
 
 .btn-index {
@@ -38,7 +38,7 @@ ul {
 }
 
 .bg-grey {
-    background-image: url("../images/background_gris2.png");
+    background-color: #1D1E1C;
     background-size:cover;
     background-position: bottom;
 
