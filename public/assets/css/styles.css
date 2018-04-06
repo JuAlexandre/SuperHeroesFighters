@@ -3,4 +3,43 @@
     height: 580px;
     background-size: cover;
     background-position: center;
+    margin-bottom: 80px;
+}
+
+* {
+    font-family: 'Open Sans', sans-serif;
+}
+
+.bangers {
+    font-family: 'Bangers', cursive;
+}
+
+h2 {
+    font-size: 5em;
+    color: #49D3EA;
+    text-shadow: #404448 0px 0px 5px;
+}
+
+.btn-index {
+    font-family: 'Bangers', cursive;
+    font-size: 2.5em;
+    background-color: #FED410;
+    color: black;
+    border: none;
+    width: 200px;
+}
+
+.btn:hover {
+    background-color: #FF3F5F;
+}
+
+ul {
+    list-style-type: none;
+}
+
+.bg-grey {
+    background-image: url("../images/background_gris2.png");
+    background-size:cover;
+    background-position: bottom;
+
 }

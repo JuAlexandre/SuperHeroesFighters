@@ -60,6 +60,8 @@ class SuperController extends AbstractController
                 $bads[] = $params;
             }
         }
+
+        $_SESSION['heroes'] = array_merge($goods, $neutrals, $bads);
         $_SESSION['goods'] = $goods;
         $_SESSION['neutrals'] = $neutrals;
         $_SESSION['bads'] = $bads;
@@ -97,15 +99,62 @@ class SuperController extends AbstractController
     {
         session_start();
 
-        if (empty($_SESSION['fight'])) {
-            throw new \LogicException('Une partie doit exister.');
+        $heroesPlayer = [];
+
+        for ($i = 0; $i < 6; $i++) {
+
+            $idSearch = $_POST['ids'][$i];
+
+            $heroesList = $_SESSION['heroes'];
+
+            foreach ($heroesList as $hero) {
+                $heroId = $hero[0]->getId();
+                if ($heroId == $idSearch) {
+                    $heroesPlayer[] = $hero[0];
+                }
+            }
+        }
+        $player = $_SESSION['player'];
+        $player->setHeroes($heroesPlayer);
+
+        $cpu = $_SESSION['cpu'];
+
+        $alignmentPlayer = $player->getAlignment();
+
+
+        if ($alignmentPlayer == 'good') {
+            $goods = array_merge($_SESSION['bads'], $_SESSION['neutrals']);
+            $numbersGood = count($goods);
+            $cpuHeroes = [];
+            for ($i=0; $i<6; $i++) {
+                $cpuHeroes[] = $goods[rand(0, $numbersGood)][0];
+            }
+        } elseif ($alignmentPlayer == 'bad') {
+            $bads = array_merge($_SESSION['goods'], $_SESSION['neutrals']);
+            $numbersBads = count($bads);
+            $cpuHeroes = [];
+            for ($i=0; $i<6; $i++) {
+                $cpuHeroes[] = $bads[rand(0, $numbersBads)][0];
+            }
         }
 
-        $fight = $_SESSION['fight'];
+        $cpu->setHeroes($cpuHeroes);
+
+        $fight = new Fight($player, $cpu);
+
 
         if ($fight->getRound() > Fight::MAX_ROUND) {
             header('Location: /gameresult');
         }
+
+        //type de round
+        $rand = rand(0, count($fight->getAttaksType()) - 1);
+        $roundAttakType = $fight->getAttaksType()[$rand];
+        $attacksType = $fight->getAttaksType();
+        array_splice($attacksType, $rand, 1);
+        sort($attacksType);
+        $fight->setAttakType($attacksType);
+
 
         $round = $fight->getRound() + 1;
         $fightersPlayer = $fight->getPlayer()->getHeroes();
@@ -114,6 +163,7 @@ class SuperController extends AbstractController
             return $this->twig->render('Super/chooseHero.html.twig', [
                 'round' => $round,
                 'fightersPlayer' => $fightersPlayer,
+                'attakType' => $roundAttakType,
             ]);
         } catch (\Exception $e) {
             echo $e->getMessage();

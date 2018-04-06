@@ -1,7 +1,36 @@
 body {
-    background-image: url("../images/background_gris.png");
+    background-image: url("../images/background_gris2.png");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: 60% 40%;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.bangers {
+    font-family: 'Bangers', cursive;
+}
+
+.btn-team {
+    font-family: 'Bangers', cursive;
+    font-size: 2.5em;
+    background-color: #FED410;
+    color: black;
+    border: none;
+    width: 200px;
+}
+
+.yes {
+    background-color: #DADADA;
+    box-shadow: inset 0px 0px 8px #6A7375;
+}
+
+.no {
+    background-color: orange;
 
 }
+
+.yes:hover, .no:hover {
+    background-color: #49D3EA;
+    box-shadow: none;
+}
+
