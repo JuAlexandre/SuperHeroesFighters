@@ -67,16 +67,19 @@ class SuperController extends AbstractController
         $_SESSION['bads'] = $bads;
 
         $nbGoods = count($goods)-1;
+        $nbNeutrals = count($neutrals)-1;
         $nbBads = count($bads)-1;
 
         $heroGood = $goods[rand(0, $nbGoods)][0];
+        $heroNeutral = $neutrals[rand(0, $nbNeutrals)][0];
         $heroBad = $goods[rand(0, $nbBads)][0];
 
 
         try {
             return $this->twig->render('Super/index.html.twig', [
                 'hero1' => $heroGood,
-                'hero2' => $heroBad,
+                'hero2' => $heroNeutral,
+                'hero3' => $heroBad
             ]);
         } catch (\Exception $e) {
             $e->getMessage();
