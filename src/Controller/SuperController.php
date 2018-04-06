@@ -81,6 +81,18 @@ class SuperController extends AbstractController
         }
     }
 
+
+    public function gameResult()
+    {
+
+
+        try {
+            return $this->twig->render('Super/game_result.html.twig', []);
+        } catch (\Exception $e) {
+            $e->getMessage();
+        }
+    }
+
     public function chooseHero()
     {
         session_start();
