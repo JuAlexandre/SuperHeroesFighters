@@ -85,13 +85,6 @@ class SuperController extends AbstractController
     {
         session_start();
 
-        //données fixtures
-        $player = new Player('toto', 'good');
-        $cpu = new Player('cpu', 'vilain');
-        $_SESSION['fight'] = new Fight($player, $cpu);
-
-        //fin données fixtures
-
         if (empty($_SESSION['fight'])) {
             throw new \LogicException('Une partie doit exister.');
         }
@@ -126,8 +119,14 @@ class SuperController extends AbstractController
         }
     }
 
+    /**
+     * @return string
+     */
     public function round()
     {
+
+
+
         try {
             return $this->twig->render('Super/round.html.twig', []);
         } catch (\Exception $e) {
@@ -138,18 +137,28 @@ class SuperController extends AbstractController
     /**
      * Display team list
      *
-     * @param $alignment
      * @return string
      */
     public function team()
     {
         session_start();
-        $_POST['alignment'] = 'good';
+
         if (empty($_POST['alignment'])) {
             throw new \LogicException('Un alignement doit être choisi.');
         }
 
         $alignment = $_POST['alignment'];
+
+        $player = new Player($_POST['name'], $alignment);
+
+        if ($alignment === 'good') {
+            $cpu = new Player('CPU', 'bad');
+        } else {
+            $cpu = new Player('CPU', 'good');
+        }
+
+        $_SESSION['player'] = $player;
+        $_SESSION['cpu'] = $cpu;
 
         if ($alignment == 'good') {
             $goods = array_merge($_SESSION['goods'], $_SESSION['neutrals']);
