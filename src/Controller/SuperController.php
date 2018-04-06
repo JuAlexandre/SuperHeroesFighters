@@ -159,7 +159,10 @@ class SuperController extends AbstractController
 
 
         $round = $fight->getRound() + 1;
+        $fight->setRound($round);
         $fightersPlayer = $fight->getPlayer()->getHeroes();
+
+        $_SESSION['fight'] = $fight;
 
         try {
             return $this->twig->render('Super/chooseHero.html.twig', [
