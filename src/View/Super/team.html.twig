@@ -8,7 +8,7 @@
 
 {% block body %}
 <section class="container-fluid">
-    <form method="post" action="">
+    <form id="team" method="post" action="/choosehero">
         <div class="row">
             <div class="col-8 text-center">
                 <h2>Choisi tes 6 fighters </h2>
@@ -18,7 +18,7 @@
                 <p>Nombre de fighters sélectionnés: <span id="counter">0</span></p>
             </div>
             <div class="col-2">
-                    <div type="submit" class="btn btn-primary">OK</div>
+                    <div id="submit" type="submit" class="btn btn-primary">OK</div>
             </div>
         </div>
 
@@ -29,7 +29,7 @@
                     <div class="card" style="width: 18rem;">
                         <img class="card-img-top" src="{{ preselectedHeroes[i].photo}}" alt="Card image cap">
                         <div class="card-body">
-                            <h5 class="card-title">{{ preselectedHeroes[i].name }}</h5>
+                            <h5 class="card-title text-center">{{ preselectedHeroes[i].name }}</h5>
                             <p class="card-text">
                                 <ul>
                                     <li>Intelligence:{{ preselectedHeroes[i].intelligence }}</li>
@@ -40,14 +40,15 @@
                                     <li>Vitesse:{{ preselectedHeroes[i].speed }}</li>
                                 </ul>
                             </p>
-
-                            <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                                <label class="yes btn btn-secondary active">
-                                    <input type="radio" name="{{ preselectedHeroes[i].id }}"> Oui
-                                </label>
-                                <label class="no btn btn-secondary">
-                                    <input type="radio" name="options" checked> Non
-                                </label>
+                            <div class="text-center">
+                                <div class="btn-group btn-group-toggle btn-btn-primary" data-toggle="buttons">
+                                    <label class="yes btn btn-success">
+                                        <input type="radio" name="{{ preselectedHeroes[i].id }}"> Oui
+                                    </label>
+                                    <label class="no btn btn-danger active">
+                                        <input type="radio" name="options"  checked> Non
+                                    </label>
+                                </div>
                             </div>
                         </div>
                     </div>
