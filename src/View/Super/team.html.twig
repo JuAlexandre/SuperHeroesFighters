@@ -7,5 +7,47 @@
 {% endblock %}
 
 {% block body %}
+<section class="container">
+    <div class="row">
+        <div class="col text-center">
+            <h2>Choisi tes 6 fighters </h2>
+        </div>
+    </div>
+    <form method="post" action="">
+        <div class="row">
+            {% for i in 0..11 %}
+                <div class="col-3">
+                    <div class="card" style="width: 18rem;">
+                        <img class="card-img-top" src="{{ preselectedHeroes[i].photo}}" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ preselectedHeroes[i].name }}</h5>
+                            <p class="card-text">
+                                <ul>
+                                    <li>Intelligence:{{ preselectedHeroes[i].intelligence }}</li>
+                                    <li>Force:{{ preselectedHeroes[i].strength }}</li>
+                                    <li>Endurance:{{ preselectedHeroes[i].durability }}</li>
+                                    <li>Puissance:{{ preselectedHeroes[i].power}}</li>
+                                    <li>Tactique:{{ preselectedHeroes[i].combat }}</li>
+                                    <li>Vitesse:{{ preselectedHeroes[i].speed }}</li>
+                                </ul>
+                            </p>
 
+                            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                <label class="btn btn-secondary active">
+                                    <input type="radio" name="{{ preselectedHeroes[i].id }}"> Oui
+                                </label>
+                                <label class="btn btn-secondary">
+                                    <input type="radio" name="options" checked> Non
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div type="button" class="btn btn-primary">OK</div>
+
+
+    </form>
+</section>
 {% endblock %}
