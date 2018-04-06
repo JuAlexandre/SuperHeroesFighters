@@ -15,8 +15,9 @@ $routes = [
         ['player', '/player', 'GET'],
         ['team', '/team', 'POST'],
         ['chooseHero', '/choosehero', 'POST'],
+        ['chooseHero', '/choosehero', 'GET'],
         ['round', '/round', 'POST'],
-        ['roundResult', '/roundresult', 'POST'],
-        ['gameResult', '/gameresult', 'POST'],
+        ['roundResult', '/roundresult', 'GET'],
+        ['gameResult', '/gameresult', 'GET'],
     ],
 ];

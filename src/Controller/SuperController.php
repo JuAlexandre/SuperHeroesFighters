@@ -30,6 +30,9 @@ class SuperController extends AbstractController
      */
     public function index()
     {
+
+        session_start();
+        session_destroy();
         session_start();
 
         $clientGuzzle = new Client([
@@ -104,18 +107,32 @@ class SuperController extends AbstractController
 
         $heroesPlayer = [];
 
-        for ($i = 0; $i < 6; $i++) {
+        if (!empty($_SESSION['fight'])) {
+            $round =  $_SESSION['fight']->getRound();
+        } else {
+            $round = 0;
+        }
 
-            $idSearch = $_POST['ids'][$i];
+        $nbHeroes = 6 - $round;
 
-            $heroesList = $_SESSION['heroes'];
 
-            foreach ($heroesList as $hero) {
-                $heroId = $hero[0]->getId();
-                if ($heroId == $idSearch) {
-                    $heroesPlayer[] = $hero[0];
+        for ($i = 0; $i < $nbHeroes; $i++) {
+
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $idSearch = $_POST['ids'][$i];
+
+                $heroesList = $_SESSION['heroes'];
+
+                foreach ($heroesList as $hero) {
+                    $heroId = $hero[0]->getId();
+                    if ($heroId == $idSearch) {
+                        $heroesPlayer[] = $hero[0];
+                    }
                 }
+            } else {
+                $heroesPlayer = $_SESSION['player']->getHeroes();
             }
+
         }
         $player = $_SESSION['player'];
         $player->setHeroes($heroesPlayer);
