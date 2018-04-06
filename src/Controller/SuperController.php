@@ -207,7 +207,6 @@ class SuperController extends AbstractController
 
         if ($alignmentPlayer == 'good') {
             $goods = array_merge($_SESSION['bads'], $_SESSION['neutrals']);
-            sort($count);
             $numbersGood = count($goods);
             $cpuHeroes = [];
             for ($i=0; $i<$nbHeroes; $i++) {
