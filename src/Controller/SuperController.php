@@ -155,6 +155,8 @@ class SuperController extends AbstractController
         sort($attacksType);
         $fight->setAttakType($attacksType);
 
+        $_SESSION['roundAttackType'] = $roundAttakType;
+
 
         $round = $fight->getRound() + 1;
         $fightersPlayer = $fight->getPlayer()->getHeroes();
@@ -185,11 +187,63 @@ class SuperController extends AbstractController
      */
     public function round()
     {
+        session_start();
 
+        if (empty($_POST['hero'])) {
+            throw new \LogicException('Il faut choisir un héro.');
+        }
+
+        $index = $_POST['hero'];
+        $player = $_SESSION['player'];
+        $playerHeroes = $player->getHeroes();
+        $heroSelectedPlayer = $playerHeroes[$index];
+
+        array_splice($playerHeroes, $index, 1);
+        $player->setHeroes($playerHeroes);
+
+        $cpu = $_SESSION['cpu'];
+        $cpuHeroes = $cpu->getHeroes();
+        $randIndex = rand(0, count($cpuHeroes)-1);
+        $heroSelectedCpu = $cpu->getHeroes()[$randIndex];
+
+        array_splice($cpuHeroes, $randIndex, 1);
+        $cpu->setHeroes($cpuHeroes);
+
+
+        $roundAttackType = $_SESSION['roundAttackType'];
+
+        $getCarac = 'get' . ucfirst($roundAttackType);
+
+        $damagePlayer = $heroSelectedPlayer->$getCarac();
+        $damageCpu = $heroSelectedCpu->$getCarac();
+
+        if ($damagePlayer > $damageCpu) {
+            $diff = abs($damageCpu-$damagePlayer);
+            $cpuLife = $cpu->getLife();
+            $cpu->setLife($cpuLife-$diff);
+        } else {
+            $diff = abs($damageCpu-$damagePlayer);
+            $playerLife = $cpu->getLife();
+            $player->setLife($playerLife-$diff);
+        }
+
+
+        //todo stockage en historique
+
+
+        $_SESSION['cpu'] = $cpu;
+        $_SESSION['player'] = $player;
 
 
         try {
-            return $this->twig->render('Super/round.html.twig', []);
+            return $this->twig->render('Super/round.html.twig', [
+                'roundAttackType' => $roundAttackType,
+                'fight' => $_SESSION['fight'],
+                'player' => $player,
+                'playerHero' => $heroSelectedPlayer,
+                'cpu' => $cpu,
+                'cpuHero' => $heroSelectedCpu,
+            ]);
         } catch (\Exception $e) {
             $e->getMessage();
         }
