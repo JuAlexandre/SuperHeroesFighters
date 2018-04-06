@@ -11,7 +11,7 @@
         </div>
         <div class="row">
             <div class="col-12">
-                <h1 class="text-center mb-5">Joueur 1 bat joueur 2</h1>
+                <h1 class="text-center mb-5">Résultat du round</h1>
             </div>
         </div>
 
@@ -19,18 +19,18 @@
         <table class="table mb-5">
             <thead>
             <tr>
-                <th>Joueur 1</th>
-                <th>Joueur 2</th>
+                <th>{{ player.name }}</th>
+                <th>{{ cpu.name }}</th>
             </tr>
             </thead>
             <tbody>
             <tr>
-                <td scope="row">90</td>
-                <td>70</td>
+                <td scope="row">{{ player.life }}</td>
+                <td>{{ cpu.life }}</td>
             </tr>
             </tbody>
         </table>
-            <button type="submit"
+            <button onclick="document.location.href='/choosehero'"
                     class="btn btn-default btn-lg btn-block">Round suivant
             </button>
         </div>

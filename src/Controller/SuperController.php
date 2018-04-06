@@ -306,8 +306,19 @@ class SuperController extends AbstractController
 
     public function roundResult()
     {
+        session_start();
+
+        $player = $_SESSION['player'];
+        $cpu = $_SESSION['cpu'];
+        $fight = $_SESSION['fight'];
+
+
         try {
-            return $this->twig->render('Super/round_result.html.twig', []);
+            return $this->twig->render('Super/round_result.html.twig', [
+                'player' => $player,
+                'cpu' => $cpu,
+                'round' => $fight->getRound(),
+            ]);
         } catch (\Exception $e) {
             $e->getMessage();
         }
