@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block body %}
-<section class="container">
+<section class="container-fluid">
     <div class="row">
         <div class="col text-center">
             <h2>Choisi tes 6 fighters </h2>
@@ -16,7 +16,7 @@
     <form method="post" action="">
         <div class="row">
             {% for i in 0..11 %}
-                <div class="col-3">
+                <div class="col-2">
                     <div class="card" style="width: 18rem;">
                         <img class="card-img-top" src="{{ preselectedHeroes[i].photo}}" alt="Card image cap">
                         <div class="card-body">
@@ -45,9 +45,11 @@
                 </div>
             {% endfor %}
         </div>
-        <div type="button" class="btn btn-primary">OK</div>
-
-
+        <div id="submit" type="submit" class="btn btn-primary">OK</div>
     </form>
 </section>
+{% endblock %}
+
+{% block javascript %}
+    <script src="assets/javascript/team.js"></script>
 {% endblock %}
