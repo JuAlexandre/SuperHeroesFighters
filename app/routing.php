@@ -14,9 +14,9 @@ $routes = [
         ['index', '/', 'GET'], // action, url, method
         ['player', '/player', 'GET'],
         ['team', '/team', 'POST'],
-        ['chooseHero', '/choosehero', 'GET'],
-        ['round', '/round', 'GET'],
-        ['roundResult', '/roundresult', 'GET'],
-        ['gameResult', '/gameresult', 'GET'],
+        ['chooseHero', '/choosehero', 'POST'],
+        ['round', '/round', 'POST'],
+        ['roundResult', '/roundresult', 'POST'],
+        ['gameResult', '/gameresult', 'POST'],
     ],
 ];
