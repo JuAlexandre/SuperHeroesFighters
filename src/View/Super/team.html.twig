@@ -3,25 +3,26 @@
 {% block title %}Choisi ton équipe{% endblock %}
 
 {% block stylesheet %}
-    <link rel="stylesheet" href="/public/assets/css/team.css">
+    <link rel="stylesheet" href="assets/css/team.css">
 {% endblock %}
 
 {% block body %}
 <section class="container-fluid">
-    <div class="row">
-        <div class="col-8 text-center">
-            <h2>Choisi tes 6 fighters </h2>
-        </div>
-
-        <div class="col-2">
-            <p>Nombre de fighters sélectionnés: <span>0</span></p>
-        </div>
-        <div class="col-2">
-                <div type="submit" class="btn btn-primary">OK</div>
-        </div>
-    </div>
-
     <form method="post" action="">
+        <div class="row">
+            <div class="col-8 text-center">
+                <h2>Choisi tes 6 fighters </h2>
+            </div>
+
+            <div class="col-2">
+                <p>Nombre de fighters sélectionnés: <span>0</span></p>
+            </div>
+            <div class="col-2">
+                    <div type="submit" class="btn btn-primary">OK</div>
+            </div>
+        </div>
+
+
         <div class="row">
             {% for i in 0..11 %}
                 <div class="col-3">
@@ -41,11 +42,11 @@
                             </p>
 
                             <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                                <label class="btn btn-secondary active">
-                                    <input class="yes"type="radio" name="{{ preselectedHeroes[i].id }}"> Oui
+                                <label class="yes btn btn-secondary active">
+                                    <input type="radio" name="{{ preselectedHeroes[i].id }}"> Oui
                                 </label>
-                                <label class="btn btn-secondary">
-                                    <input class="no" type="radio" name="options" checked> Non
+                                <label class="no btn btn-secondary">
+                                    <input type="radio" name="options" checked> Non
                                 </label>
                             </div>
                         </div>
@@ -53,9 +54,6 @@
                 </div>
             {% endfor %}
         </div>
-
-
-
     </form>
 </section>
 {% endblock %}
