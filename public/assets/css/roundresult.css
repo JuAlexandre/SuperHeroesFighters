@@ -1,0 +1,43 @@
+body {
+    margin-top: 5vh;
+    background-image: url("../images/background_gris.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 60% 40%;
+
+}
+.btn {
+    font-family: 'Bangers', cursive;
+    font-size: 2.5em;
+}
+table {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1.2em;
+    text-align: center;
+}
+h1 {
+    font-family: 'Bangers', cursive;
+    font-size: 3.5em;
+}
+
+th {
+    font-size: 2.5em;
+    color: #49D3EA;
+    text-align: center;
+    font-family: 'Bangers', cursive;
+    text-shadow: black 0.1em 0.1em 0.2em;
+}
+
+p {
+    font-size: 1em;
+    text-align: center;
+    font-family: "Open Sans";
+}
+
+/*jaune #;FED410
+rose#FF3F5F
+bleu
+*/
+button {
+    background-color: #FED410 ;
+}

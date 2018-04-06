@@ -110,7 +110,6 @@ class SuperController extends AbstractController
         $round = $fight->getRound() + 1;
         $fightersPlayer = $fight->getPlayer()->getHeroes();
 
-
         try {
             return $this->twig->render('Super/chooseHero.html.twig', [
                 'round' => $round,
@@ -190,6 +189,15 @@ class SuperController extends AbstractController
 
         try {
             return $this->twig->render('Super/team.html.twig', ['preselectedHeroes' => $preselectedHeroes]);
+        } catch (\Exception $e) {
+            $e->getMessage();
+        }
+    }
+
+    public function roundResult()
+    {
+        try {
+            return $this->twig->render('Super/round_result.html.twig', []);
         } catch (\Exception $e) {
             $e->getMessage();
         }

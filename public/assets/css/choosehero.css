@@ -1,0 +1,23 @@
+body {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1em;
+    background-color: #DADADA;
+}
+.form-check-label {
+    font-family: 'Bangers', cursive;
+    font-size: 2em;
+}
+
+.type {
+    font-family: 'Bangers', cursive;
+    font-size: 2.5em;
+}
+
+.numero {
+    font-family: 'Bangers', cursive;
+    font-size: 1.5em;
+}
+ul {
+    list-style-type: none;
+}
+
