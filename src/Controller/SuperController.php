@@ -319,7 +319,14 @@ class SuperController extends AbstractController
         }
 
 
-        //todo stockage en historique
+        if (!isset($_SESSION['pvs'])) {
+            $_SESSION['pvs'] = [];
+        }
+        $cpuPv = $cpu->getLife();
+        $playerPV = $player->getLife();
+
+        $_SESSION['pvs']['cpu'][] = $cpuPv;
+        $_SESSION['pvs']['player'][] = $playerPV;
 
 
         $_SESSION['cpu'] = $cpu;
@@ -364,10 +371,18 @@ class SuperController extends AbstractController
 
     public function gameResult()
     {
+        session_start();
 
+        $cpuPvs = $_SESSION['pvs']['cpu'];
+        $playerPvs = $_SESSION['pvs']['player'];
+        $player = $_SESSION['player'];
 
         try {
-            return $this->twig->render('Super/game_result.html.twig', []);
+            return $this->twig->render('Super/game_result.html.twig', [
+                'cpuPvs' => $cpuPvs,
+                'playerPvs' => $playerPvs,
+                'player' => $player,
+            ]);
         } catch (\Exception $e) {
             $e->getMessage();
         }
