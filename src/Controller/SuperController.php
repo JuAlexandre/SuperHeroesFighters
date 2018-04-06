@@ -9,7 +9,7 @@
 
 namespace Controller;
 
-use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Client;
 use Model\Fight;
 use Model\Player;
 use Model\Hero;
@@ -32,7 +32,7 @@ class SuperController extends AbstractController
     {
         session_start();
 
-        $clientGuzzle = new \GuzzleHttp\Client([
+        $clientGuzzle = new Client([
                 'base_uri' => 'https://cdn.rawgit.com/akabab/superhero-api/0.2.0/api/',
             ]
         );
