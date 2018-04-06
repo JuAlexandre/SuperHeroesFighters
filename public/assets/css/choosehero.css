@@ -34,9 +34,11 @@ ul {
     background-color: #FED410;
     color: black;
     border: none;
+    margin-left: 300px;
 }
 
 .btn-choose:hover {
     background-color: #FF3F5F;
 }
+
 
