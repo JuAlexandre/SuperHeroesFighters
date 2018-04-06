@@ -12,6 +12,11 @@
         <div class="col text-center">
             <h2>Choisi tes 6 fighters </h2>
         </div>
+        <div class="row">
+            <div type="submit" class="btn btn-primary">OK</div>
+        </div>
+        <div class="row">
+            <p>Nombre de fighters sélectionnés: <span>0</span></p>
     </div>
     <form method="post" action="">
         <div class="row">
@@ -34,10 +39,10 @@
 
                             <div class="btn-group btn-group-toggle" data-toggle="buttons">
                                 <label class="btn btn-secondary active">
-                                    <input type="radio" name="{{ preselectedHeroes[i].id }}"> Oui
+                                    <input class="yes"type="radio" name="{{ preselectedHeroes[i].id }}"> Oui
                                 </label>
                                 <label class="btn btn-secondary">
-                                    <input type="radio" name="options" checked> Non
+                                    <input class="no" type="radio" name="options" checked> Non
                                 </label>
                             </div>
                         </div>
@@ -45,6 +50,7 @@
                 </div>
             {% endfor %}
         </div>
+
         <div id="submit" type="submit" class="btn btn-primary">OK</div>
     </form>
 </section>
