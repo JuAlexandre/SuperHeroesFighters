@@ -6,6 +6,7 @@
 {% block title %}{{ parent() }} - Choix du héros{% endblock %}
 
 {% block body %}
+    <div class ="container-fluid bg-choose">
 <section class="container">
     <div class="row">
         <div class="col-8 type my-4">
@@ -53,11 +54,12 @@
                         </div>
                     {% endfor %}
                     <div class="row m-3">
-                        <input type="submit" class="btn btn-primary" value="Envoyer au combat !">
+                        <input type="submit" class="btn btn-choose btn-primary" value="Envoyer au combat !">
                     </div>
                 </div>
             </form>
         </div>
     </div>
 </section>
+    </div>
 {% endblock %}
