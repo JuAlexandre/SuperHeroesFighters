@@ -63,6 +63,7 @@ class SuperController extends AbstractController
                 $bads[] = $params;
             }
         }
+        array_splice($bads, 397, 1);
 
         $_SESSION['heroes'] = array_merge($goods, $neutrals, $bads);
         $_SESSION['goods'] = $goods;
@@ -89,13 +90,60 @@ class SuperController extends AbstractController
         }
     }
 
-
-    public function gameResult()
+    public function player()
     {
+        try {
+            return $this->twig->render('Super/player.html.twig', []);
+        } catch (\Exception $e) {
+            $e->getMessage();
 
+        }
+    }
+
+    /**
+     * Display team list
+     *
+     * @return string
+     */
+    public function team()
+    {
+        session_start();
+
+        if (empty($_POST['alignment'])) {
+            throw new \LogicException('Un alignement doit être choisi.');
+        }
+
+        $alignment = $_POST['alignment'];
+
+        $player = new Player($_POST['name'], $alignment);
+
+        if ($alignment === 'good') {
+            $cpu = new Player('CPU', 'bad');
+        } else {
+            $cpu = new Player('CPU', 'good');
+        }
+
+        $_SESSION['player'] = $player;
+        $_SESSION['cpu'] = $cpu;
+
+        if ($alignment == 'good') {
+            $goods = array_merge($_SESSION['goods'], $_SESSION['neutrals']);
+            $numbersGood = count($goods);
+            $preselectedHeroes = [];
+            for ($i=0; $i<12; $i++) {
+                $preselectedHeroes[] = $goods[rand(0, $numbersGood)][0];
+            }
+        } elseif ($alignment == 'bad') {
+            $bads = array_merge($_SESSION['bads'], $_SESSION['neutrals']);
+            $numbersBads = count($bads);
+            $preselectedHeroes = [];
+            for ($i=0; $i<12; $i++) {
+                $preselectedHeroes[] = $bads[rand(0, $numbersBads)][0];
+            }
+        }
 
         try {
-            return $this->twig->render('Super/game_result.html.twig', []);
+            return $this->twig->render('Super/team.html.twig', ['preselectedHeroes' => $preselectedHeroes]);
         } catch (\Exception $e) {
             $e->getMessage();
         }
@@ -104,6 +152,15 @@ class SuperController extends AbstractController
     public function chooseHero()
     {
         session_start();
+
+        if (isset($_SESSION['player']) && isset($_SESSION['cpu'])) {
+            if (!empty($_SESSION['player']) && !empty($_SESSION['cpu'])) {
+                if ($_SESSION['player']->getLife() <= 0 || $_SESSION['cpu']->getLife() <= 0) {
+                    header('Location: /gameresult');
+                    exit();
+                }
+            }
+        }
 
         $heroesPlayer = [];
 
@@ -115,11 +172,12 @@ class SuperController extends AbstractController
 
         $nbHeroes = 6 - $round;
 
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $ids = $_POST['ids'];
+            sort($ids);
+            for ($i = 0; $i < $nbHeroes; $i++) {
 
-        for ($i = 0; $i < $nbHeroes; $i++) {
-
-            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                $idSearch = $_POST['ids'][$i];
+                $idSearch = $ids[$i];
 
                 $heroesList = $_SESSION['heroes'];
 
@@ -129,11 +187,13 @@ class SuperController extends AbstractController
                         $heroesPlayer[] = $hero[0];
                     }
                 }
-            } else {
-                $heroesPlayer = $_SESSION['player']->getHeroes();
             }
 
+        } else {
+            $heroesPlayer = $_SESSION['player']->getHeroes();
         }
+
+
         $player = $_SESSION['player'];
         $player->setHeroes($heroesPlayer);
 
@@ -146,7 +206,7 @@ class SuperController extends AbstractController
             $goods = array_merge($_SESSION['bads'], $_SESSION['neutrals']);
             $numbersGood = count($goods);
             $cpuHeroes = [];
-            for ($i=0; $i<6; $i++) {
+            for ($i=0; $i<$nbHeroes; $i++) {
                 $cpuHeroes[] = $goods[rand(0, $numbersGood)][0];
             }
         } elseif ($alignmentPlayer == 'bad') {
@@ -183,25 +243,19 @@ class SuperController extends AbstractController
         $fightersPlayer = $fight->getPlayer()->getHeroes();
 
         $_SESSION['fight'] = $fight;
+        $round = 6 - $fight->getRound();
+
 
         try {
             return $this->twig->render('Super/chooseHero.html.twig', [
-                'round' => $round,
+                'nbHeroes' => $round,
                 'fightersPlayer' => $fightersPlayer,
                 'attakType' => $roundAttakType,
+                'round' => $nbHeroes,
+
             ]);
         } catch (\Exception $e) {
             echo $e->getMessage();
-        }
-    }
-
-    public function player()
-    {
-        try {
-            return $this->twig->render('Super/player.html.twig', []);
-        } catch (\Exception $e) {
-            $e->getMessage();
-
         }
     }
 
@@ -213,7 +267,8 @@ class SuperController extends AbstractController
         session_start();
 
         if (empty($_POST['hero'])) {
-            throw new \LogicException('Il faut choisir un héro.');
+            //throw new \LogicException('Il faut choisir un héro.');
+            $_POST['hero'] = 0;
         }
 
         $index = $_POST['hero'];
@@ -272,54 +327,7 @@ class SuperController extends AbstractController
         }
     }
 
-    /**
-     * Display team list
-     *
-     * @return string
-     */
-    public function team()
-    {
-        session_start();
 
-        if (empty($_POST['alignment'])) {
-            throw new \LogicException('Un alignement doit être choisi.');
-        }
-
-        $alignment = $_POST['alignment'];
-
-        $player = new Player($_POST['name'], $alignment);
-
-        if ($alignment === 'good') {
-            $cpu = new Player('CPU', 'bad');
-        } else {
-            $cpu = new Player('CPU', 'good');
-        }
-
-        $_SESSION['player'] = $player;
-        $_SESSION['cpu'] = $cpu;
-
-        if ($alignment == 'good') {
-            $goods = array_merge($_SESSION['goods'], $_SESSION['neutrals']);
-            $numbersGood = count($goods);
-            $preselectedHeroes = [];
-            for ($i=0; $i<12; $i++) {
-                $preselectedHeroes[] = $goods[rand(0, $numbersGood)][0];
-            }
-        } elseif ($alignment == 'bad') {
-            $bads = array_merge($_SESSION['bads'], $_SESSION['neutrals']);
-            $numbersBads = count($bads);
-            $preselectedHeroes = [];
-            for ($i=0; $i<12; $i++) {
-                $preselectedHeroes[] = $bads[rand(0, $numbersBads)][0];
-            }
-        }
-
-        try {
-            return $this->twig->render('Super/team.html.twig', ['preselectedHeroes' => $preselectedHeroes]);
-        } catch (\Exception $e) {
-            $e->getMessage();
-        }
-    }
 
     public function roundResult()
     {
@@ -340,4 +348,16 @@ class SuperController extends AbstractController
             $e->getMessage();
         }
     }
+
+    public function gameResult()
+    {
+
+
+        try {
+            return $this->twig->render('Super/game_result.html.twig', []);
+        } catch (\Exception $e) {
+            $e->getMessage();
+        }
+    }
+
 }
