@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: root
- * Date: 11/10/17
- * Time: 16:07
- * PHP version 7
- */
 
 namespace Controller;
 
@@ -14,31 +7,26 @@ use Model\Fight;
 use Model\Player;
 use Model\Hero;
 
-
 /**
  * Class SuperController
- *
+ * @package Controller
  */
 class SuperController extends AbstractController
 {
-
     /**
-     * Display home
-     *
+     * Display home.
      * @return string
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function index()
     {
-
         session_start();
         session_destroy();
         session_start();
 
         $clientGuzzle = new Client([
-                'base_uri' => 'https://cdn.rawgit.com/akabab/superhero-api/0.2.0/api/',
-            ]
-        );
+            'base_uri' => 'https://cdn.rawgit.com/akabab/superhero-api/0.2.0/api/',
+        ]);
 
         try {
             $heroesList = $clientGuzzle->request('GET', 'all.json');
@@ -54,7 +42,20 @@ class SuperController extends AbstractController
 
         foreach ($heroes as $hero) {
             $alignment = $hero->biography->alignment;
-            $params = [new Hero(intval($hero->id), $hero->name, intval($hero->powerstats->intelligence), intval($hero->powerstats->strength), intval($hero->powerstats->speed), intval($hero->powerstats->durability), intval($hero->powerstats->power), intval($hero->powerstats->combat), $hero->appearance->gender, $hero->appearance->race, $hero->biography->alignment, $hero->images->sm)];
+            $params = [
+                new Hero(intval($hero->id),
+                    $hero->name,
+                    intval($hero->powerstats->intelligence),
+                    intval($hero->powerstats->strength),
+                    intval($hero->powerstats->speed),
+                    intval($hero->powerstats->durability),
+                    intval($hero->powerstats->power),
+                    intval($hero->powerstats->combat),
+                    $hero->appearance->gender,
+                    $hero->appearance->race,
+                    $hero->biography->alignment,
+                    $hero->images->sm
+                )];
             if ($alignment == 'good') {
                 $goods[] = $params;
             } elseif ($alignment == 'neutral' || $alignment == '-') {
@@ -78,7 +79,6 @@ class SuperController extends AbstractController
         $heroNeutral = $neutrals[rand(0, $nbNeutrals)][0];
         $heroBad = $goods[rand(0, $nbBads)][0];
 
-
         try {
             return $this->twig->render('Super/index.html.twig', [
                 'hero1' => $heroGood,
@@ -90,6 +90,9 @@ class SuperController extends AbstractController
         }
     }
 
+    /**
+     * @return string
+     */
     public function player()
     {
         try {
@@ -101,8 +104,7 @@ class SuperController extends AbstractController
     }
 
     /**
-     * Display team list
-     *
+     * Display team list.
      * @return string
      */
     public function team()
@@ -153,7 +155,6 @@ class SuperController extends AbstractController
     {
         session_start();
 
-        //si un joueur est mort on va aux résultats finaux
         if (isset($_SESSION['player']) && isset($_SESSION['cpu'])) {
             if (!empty($_SESSION['player']) && !empty($_SESSION['cpu'])) {
                 if ($_SESSION['player']->getLife() <= 0 || $_SESSION['cpu']->getLife() <= 0) {
@@ -173,7 +174,6 @@ class SuperController extends AbstractController
 
         $nbHeroes = 6 - $round;
 
-        //on set les heroes en fonction de post ou de get
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $ids = $_POST['ids'];
             sort($ids);
@@ -232,7 +232,6 @@ class SuperController extends AbstractController
 
         $cpu->setHeroes($cpuHeroes);
 
-
         if (!isset($_SESSION['fight'])) {
             $fight = new Fight($player, $cpu);
             $_SESSION['fight'] = $fight;
@@ -240,13 +239,10 @@ class SuperController extends AbstractController
             $fight = $_SESSION['fight'];
         }
 
-
-
         if ($fight->getRound() > Fight::MAX_ROUND) {
             header('Location: /gameresult');
         }
 
-        //type de round
         $max = count($fight->getAttaksType()) - 1;
         if ($max < 0) {
             $max = 0;
@@ -259,7 +255,6 @@ class SuperController extends AbstractController
         $fight->setAttakType($attacksType);
 
         $_SESSION['roundAttackType'] = $roundAttakType;
-
 
         $round = $fight->getRound() + 1;
         $fight->setRound($round);
@@ -291,7 +286,6 @@ class SuperController extends AbstractController
         session_start();
 
         if (empty($_POST['hero'])) {
-            //throw new \LogicException('Il faut choisir un héro.');
             $_POST['hero'] = 0;
         }
 
@@ -329,7 +323,6 @@ class SuperController extends AbstractController
             $player->setLife($playerLife-$diff);
         }
 
-
         if (!isset($_SESSION['pvs'])) {
             $_SESSION['pvs'] = [];
         }
@@ -339,10 +332,8 @@ class SuperController extends AbstractController
         $_SESSION['pvs']['cpu'][] = $cpuPv;
         $_SESSION['pvs']['player'][] = $playerPV;
 
-
         $_SESSION['cpu'] = $cpu;
         $_SESSION['player'] = $player;
-
 
         try {
             return $this->twig->render('Super/round.html.twig', [
@@ -358,8 +349,9 @@ class SuperController extends AbstractController
         }
     }
 
-
-
+    /**
+     * @return string
+     */
     public function roundResult()
     {
         session_start();
@@ -367,7 +359,6 @@ class SuperController extends AbstractController
         $player = $_SESSION['player'];
         $cpu = $_SESSION['cpu'];
         $fight = $_SESSION['fight'];
-
 
         try {
             return $this->twig->render('Super/round_result.html.twig', [
@@ -380,6 +371,9 @@ class SuperController extends AbstractController
         }
     }
 
+    /**
+     * @return string
+     */
     public function gameResult()
     {
         session_start();
@@ -405,5 +399,4 @@ class SuperController extends AbstractController
             $e->getMessage();
         }
     }
-
 }

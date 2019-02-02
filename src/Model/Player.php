@@ -1,13 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: wilder16
- * Date: 05/04/18
- * Time: 17:34
- */
 
 namespace Model;
-
 
 class Player
 {
@@ -15,10 +8,12 @@ class Player
      * @var string
      */
     private $name;
+
     /**
      * @var int
      */
     private $life = 100;
+
     /**
      * @var array
      */
@@ -29,7 +24,11 @@ class Player
      */
     private $alignment;
 
-
+    /**
+     * Player constructor.
+     * @param string $name
+     * @param string $alignment
+     */
     public function __construct(string $name, string $alignment)
     {
         $this->setName($name)->setAlignment($alignment);
@@ -106,6 +105,4 @@ class Player
         $this->alignment = $alignment;
         return $this;
     }
-
-
 }

@@ -1,13 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: wilder16
- * Date: 05/04/18
- * Time: 17:37
- */
 
 namespace Model;
-
 
 class Fight
 {
@@ -17,10 +10,12 @@ class Fight
      * @var Player
      */
     private $player;
+
     /**
      * @var Player
      */
     private $cpu;
+
     /**
      * @var int
      */
@@ -39,11 +34,6 @@ class Fight
     public function __construct(Player $player, Player $cpu)
     {
         $this->setCpu($cpu)->setPlayer($player);
-    }
-
-    public function runRound()
-    {
-        //TODO
     }
 
     /**
@@ -117,6 +107,4 @@ class Fight
         $this->attakType = $attakType;
         return $this;
     }
-
-
 }

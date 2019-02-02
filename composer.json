@@ -1,18 +1,20 @@
 {
-    "name": "aurel/simple-mvc",
-    "description": "Simple from scratch PHP MVC",
+    "name": "jualexandre/super-heroes-fighters",
+    "description": "Hackathon: Super hero games",
     "authors": [
-        {
-            "name": "Aurelien",
-            "email": "barbier.aurelien@wildcodeschool.fr"
-        }
+        {"name": "Julia LIMOUSIN"},
+        {"name": "Emilie BERGER"},
+        {"name": "Louise ROY"},
+        {"name": "Jérôme LEGRAND"},
+        {"name": "Julien ALEXANDRE", "email": "julien.alexandre26@gmail.com"}
     ],
     "minimum-stability": "stable",
     "require": {
         "nikic/fast-route": "^1.2",
         "twig/twig": "^2.4",
         "squizlabs/php_codesniffer": "*",
-        "guzzlehttp/guzzle": "^6.3"
+        "guzzlehttp/guzzle": "^6.3",
+        "ext-json": "*"
     },
     "autoload": {
         "psr-4": {

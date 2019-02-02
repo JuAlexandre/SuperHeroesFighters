@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: wilder16
- * Date: 05/04/18
- * Time: 17:27
- */
 
 namespace Model;
 
@@ -14,53 +8,91 @@ class Hero
      * @var int
      */
     private $id;
+
     /**
      * @var string
      */
     private $name;
+
     /**
      * @var int
      */
     private $intelligence;
+
     /**
      * @var int
      */
     private $strength;
+
     /**
      * @var int
      */
     private $speed;
+
     /**
      * @var int
      */
     private $durability;
+
     /**
      * @var int
      */
     private $power;
+
     /**
      * @var int
      */
     private $combat;
+
     /**
      * @var int
      */
     private $gender;
+
     /**
      * @var ?string
      */
     private $race;
+
     /**
      * @var string
      */
     private $alignment;
+    
     /**
      * @var string
      */
     private $photo;
 
-    public function __construct(int $id, string $name, int $intelligence, int $strength, int $speed, int $durability, int $power, int $combat, string $gender, ?string $race, string $alignment, string $photo)
-    {
+    /**
+     * Hero constructor.
+     * @param int $id
+     * @param string $name
+     * @param int $intelligence
+     * @param int $strength
+     * @param int $speed
+     * @param int $durability
+     * @param int $power
+     * @param int $combat
+     * @param string $gender
+     * @param string|null $race
+     * @param string $alignment
+     * @param string $photo
+     */
+    public function __construct(
+        int $id,
+        string $name,
+        int $intelligence,
+        int $strength,
+        int $speed,
+        int $durability,
+        int $power,
+        int $combat,
+        string $gender,
+        ?string $race,
+        string $alignment,
+        string $photo
+    ) {
         $this->setId($id)->setName($name)->setIntelligence($intelligence)->setStrength($strength)->setSpeed($speed)
             ->setDurability($durability)->setPower($power)->setCombat($combat)->setGender($gender)->setRace($race)
             ->setAlignment($alignment)->setPhoto($photo);
@@ -281,6 +313,4 @@ class Hero
         $this->photo = $photo;
         return $this;
     }
-
-
 }

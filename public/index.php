@@ -1,13 +1,7 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: root
- * Date: 11/10/17
- * Time: 14:01
- */
 
 if (preg_match('/\.(?:png|jpg|jpeg|gif)$/', $_SERVER["REQUEST_URI"])) {
-    return false;    // retourne la requête telle quelle.
+    return false;    // Return the request
 }
 
 require_once __DIR__ . '/../vendor/autoload.php';
